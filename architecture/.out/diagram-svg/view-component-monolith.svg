@@ -1,0 +1,169 @@
+<svg viewBox="0 0 1186 944" width="1186" height="944" xmlns="http://www.w3.org/2000/svg" data-routing-version="2">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--color-border-strong)" />
+    </marker>
+  </defs>
+  <rect x="64.0" y="130.0" width="794.0" height="650.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="80.0" y="152.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Web / API Monolith [Container Boundary]</text>
+  <g data-relationship-id="rel-adminui-to-restapi" data-view-id="view-component-monolith" data-target-label="Same-process calls">
+    <path d="M 288.9 199.0 L 297.9 199.0 Q 306.9 199.0 306.9 190.0 L 306.9 134.0 Q 306.9 124.0 316.9 124.0 L 702.7 124.0 Q 712.7 124.0 712.7 134.0 L 712.7 154.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 288.9 199.0 L 297.9 199.0 Q 306.9 199.0 306.9 190.0 L 306.9 134.0 Q 306.9 124.0 316.9 124.0 L 702.7 124.0 Q 712.7 124.0 712.7 134.0 L 712.7 154.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-restapi-to-mw" data-view-id="view-component-monolith" data-target-label="Wraps every protected route">
+    <path d="M 830.0 199.0 L 847.5 199.0 Q 848.0 199.0 847.5 199.0 L 847.5 199.0 Q 846.9 199.0 846.9 199.6 L 846.9 438.0 Q 846.9 448.0 836.9 448.0 L 807.7 448.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 830.0 199.0 L 847.5 199.0 Q 848.0 199.0 847.5 199.0 L 847.5 199.0 Q 846.9 199.0 846.9 199.6 L 846.9 438.0 Q 846.9 448.0 836.9 448.0 L 807.7 448.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-mw-to-auth" data-view-id="view-component-monolith" data-target-label="Resolves admin session">
+    <path d="M 712.7 502.0 L 712.7 511.0 Q 712.7 520.0 703.7 520.0 L 514.3 520.0 Q 504.3 520.0 504.3 530.0 L 504.3 677.0 Q 504.3 687.0 494.3 687.0 L 277.9 687.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 712.7 502.0 L 712.7 511.0 Q 712.7 520.0 703.7 520.0 L 514.3 520.0 Q 504.3 520.0 504.3 530.0 L 504.3 677.0 Q 504.3 687.0 494.3 687.0 L 277.9 687.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-signerui-to-magic" data-view-id="view-component-monolith" data-target-label="Validate and consume signer token">
+    <path d="M 357.0 190.0 L 323.3 190.0 Q 313.3 190.0 313.3 200.0 L 313.3 258.0 Q 313.3 268.0 303.3 268.0 L 88.1 268.0 Q 78.1 268.0 78.1 278.0 L 78.1 310.0 Q 78.1 319.0 87.1 319.0 L 96.1 319.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 357.0 190.0 L 323.3 190.0 Q 313.3 190.0 313.3 200.0 L 313.3 258.0 Q 313.3 268.0 303.3 268.0 L 88.1 268.0 Q 78.1 268.0 78.1 278.0 L 78.1 310.0 Q 78.1 319.0 87.1 319.0 L 96.1 319.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-mw-to-document" data-view-id="view-component-monolith" data-target-label="Authorized document writes">
+    <path d="M 617.7 448.0 L 592.6 448.0 Q 582.6 448.0 582.6 438.0 L 582.6 379.0 Q 582.6 369.0 572.6 369.0 L 336.3 369.0 Q 326.3 369.0 326.3 359.0 L 326.3 328.0 Q 326.3 319.0 335.3 319.0 L 344.3 319.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 617.7 448.0 L 592.6 448.0 Q 582.6 448.0 582.6 438.0 L 582.6 379.0 Q 582.6 369.0 572.6 369.0 L 336.3 369.0 Q 326.3 369.0 326.3 359.0 L 326.3 328.0 Q 326.3 319.0 335.3 319.0 L 344.3 319.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-mw-to-template" data-view-id="view-component-monolith" data-target-label="Authorized template writes">
+    <path d="M 712.7 394.0 L 712.7 379.0 Q 712.7 376.0 712.7 379.0 L 712.7 379.0 Q 712.7 382.0 712.7 379.0 L 712.7 364.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 712.7 394.0 L 712.7 379.0 Q 712.7 376.0 712.7 379.0 L 712.7 379.0 Q 712.7 382.0 712.7 379.0 L 712.7 364.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-signerui-to-signing" data-view-id="view-component-monolith" data-target-label="Submit signature">
+    <path d="M 357.0 208.0 L 330.9 208.0 Q 320.9 208.0 320.9 218.0 L 320.9 371.4 Q 320.9 372.0 320.3 372.0 L 320.3 372.0 Q 319.7 372.0 319.7 372.6 L 319.7 421.0 Q 319.7 430.0 310.7 430.0 L 301.7 430.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 357.0 208.0 L 330.9 208.0 Q 320.9 208.0 320.9 218.0 L 320.9 371.4 Q 320.9 372.0 320.3 372.0 L 320.3 372.0 Q 319.7 372.0 319.7 372.6 L 319.7 421.0 Q 319.7 430.0 310.7 430.0 L 301.7 430.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-signing-to-audit" data-view-id="view-component-monolith" data-target-label="Append audit event (sync, in-tx)">
+    <path d="M 197.1 484.0 L 197.1 499.0 Q 197.1 502.0 197.1 499.0 L 197.1 499.0 Q 197.1 496.0 197.1 499.0 L 197.1 514.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 197.1 484.0 L 197.1 499.0 Q 197.1 502.0 197.1 499.0 L 197.1 499.0 Q 197.1 496.0 197.1 499.0 L 197.1 514.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-document-to-audit" data-view-id="view-component-monolith" data-target-label="Append audit event for transitions (sync, in-tx)">
+    <path d="M 553.4 328.0 L 572.6 328.0 Q 582.6 328.0 582.6 338.0 L 582.6 502.0 Q 582.6 512.0 572.6 512.0 L 84.0 512.0 Q 74.0 512.0 74.0 522.0 L 74.0 550.0 Q 74.0 559.0 83.0 559.0 L 92.0 559.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 553.4 328.0 L 572.6 328.0 Q 582.6 328.0 582.6 338.0 L 582.6 502.0 Q 582.6 512.0 572.6 512.0 L 84.0 512.0 Q 74.0 512.0 74.0 522.0 L 74.0 550.0 Q 74.0 559.0 83.0 559.0 L 92.0 559.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-signing-to-webhookmgr" data-view-id="view-component-monolith" data-target-label="Enqueue webhook delivery (in-tx)">
+    <path d="M 301.7 448.0 L 320.5 448.0 Q 325.0 448.0 325.0 443.5 L 325.0 443.5 Q 325.0 439.0 329.5 439.0 L 344.3 439.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 301.7 448.0 L 320.5 448.0 Q 325.0 448.0 325.0 443.5 L 325.0 443.5 Q 325.0 439.0 329.5 439.0 L 344.3 439.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-document-svc-to-pg" data-view-id="view-component-monolith" data-target-label="Persist documents/recipients">
+    <path d="M 553.4 310.0 L 562.4 310.0 Q 571.4 310.0 571.4 301.0 L 571.4 134.0 Q 571.4 124.0 581.4 124.0 L 1054.3 124.0 Q 1064.3 124.0 1064.3 134.0 L 1064.3 176.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 553.4 310.0 L 562.4 310.0 Q 571.4 310.0 571.4 301.0 L 571.4 134.0 Q 571.4 124.0 581.4 124.0 L 1054.3 124.0 Q 1064.3 124.0 1064.3 134.0 L 1064.3 176.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-template-svc-to-pg" data-view-id="view-component-monolith" data-target-label="Persist templates">
+    <path d="M 817.3 319.0 L 829.0 319.0 Q 835.3 319.0 835.3 312.8 L 835.3 312.8 Q 835.3 306.5 841.5 306.5 L 1040.9 306.5 Q 1050.9 306.5 1050.9 296.5 L 1050.9 266.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 817.3 319.0 L 829.0 319.0 Q 835.3 319.0 835.3 312.8 L 835.3 312.8 Q 835.3 306.5 841.5 306.5 L 1040.9 306.5 Q 1050.9 306.5 1050.9 296.5 L 1050.9 266.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-signing-to-pg" data-view-id="view-component-monolith" data-target-label="Append signature_events">
+    <path d="M 92.6 439.0 L 83.6 439.0 Q 74.6 439.0 74.6 430.0 L 74.6 124.0 Q 74.6 114.0 84.6 114.0 L 1014.2 114.0 Q 1024.2 114.0 1024.2 124.0 L 1024.2 176.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 92.6 439.0 L 83.6 439.0 Q 74.6 439.0 74.6 430.0 L 74.6 124.0 Q 74.6 114.0 84.6 114.0 L 1014.2 114.0 Q 1024.2 114.0 1024.2 124.0 L 1024.2 176.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-audit-to-pg" data-view-id="view-component-monolith" data-target-label="Append hash-chained audit_events (sync path)">
+    <path d="M 302.3 559.0 L 848.0 559.0 Q 858.0 559.0 858.0 549.0 L 858.0 231.0 Q 858.0 221.0 868.0 221.0 L 926.0 221.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 302.3 559.0 L 848.0 559.0 Q 858.0 559.0 858.0 549.0 L 858.0 231.0 Q 858.0 221.0 868.0 221.0 L 926.0 221.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-webhookmgr-to-pg" data-view-id="view-component-monolith" data-target-label="Persist subscriptions and delivery intent + enqueue job on webhook-delivery queue">
+    <path d="M 553.4 439.0 L 562.4 439.0 Q 571.4 439.0 571.4 448.0 L 571.4 516.0 Q 571.4 526.0 581.4 526.0 L 987.5 526.0 Q 997.5 526.0 997.5 516.0 L 997.5 266.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 553.4 439.0 L 562.4 439.0 Q 571.4 439.0 571.4 448.0 L 571.4 516.0 Q 571.4 526.0 581.4 526.0 L 987.5 526.0 Q 997.5 526.0 997.5 516.0 L 997.5 266.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-magic-to-pg" data-view-id="view-component-monolith" data-target-label="Issue/consume magic-link tokens">
+    <path d="M 298.2 319.0 L 307.2 319.0 Q 316.2 319.0 316.2 310.0 L 316.2 134.0 Q 316.2 124.0 326.2 124.0 L 974.1 124.0 Q 984.1 124.0 984.1 134.0 L 984.1 176.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 298.2 319.0 L 307.2 319.0 Q 316.2 319.0 316.2 310.0 L 316.2 134.0 Q 316.2 124.0 326.2 124.0 L 974.1 124.0 Q 984.1 124.0 984.1 134.0 L 984.1 176.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-auth-to-workos" data-view-id="view-component-monolith" data-target-label="OIDC/SAML callback">
+    <path d="M 185.0 732.0 L 185.0 745.5 Q 185.0 755.0 175.5 755.0 L 175.5 755.0 Q 166.0 755.0 166.0 764.5 L 166.0 798.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 185.0 732.0 L 185.0 745.5 Q 185.0 755.0 175.5 755.0 L 175.5 755.0 Q 166.0 755.0 166.0 764.5 L 166.0 798.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-admin-ui" data-view-id="view-component-monolith" data-target-label="Admin Console">
+    <rect x="105.3" y="154.0" width="183.6" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 117.3 154.0 H 276.9 Q 288.9 154.0 288.9 166.0 V 173.0 H 105.3 V 166.0 Q 105.3 154.0 117.3 154.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="197.1" y="164.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="197.1" y="206.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Admin Console</text>
+    <text x="197.1" y="224.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Next.js (React, SSR)</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-signer-ui" data-view-id="view-component-monolith" data-target-label="Signer UI">
+    <rect x="357.0" y="154.0" width="183.6" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 369.0 154.0 H 528.6 Q 540.6 154.0 540.6 166.0 V 173.0 H 357.0 V 166.0 Q 357.0 154.0 369.0 154.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="448.8" y="164.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="448.8" y="206.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Signer UI</text>
+    <text x="448.8" y="224.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Next.js (React, SSR)</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-rest-api" data-view-id="view-component-monolith" data-target-label="Public REST API">
+    <rect x="595.4" y="154.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 607.4 154.0 H 818.0 Q 830.0 154.0 830.0 166.0 V 173.0 H 595.4 V 166.0 Q 595.4 154.0 607.4 154.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="712.7" y="164.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="712.7" y="206.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Public REST API</text>
+    <text x="712.7" y="224.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Next.js Route Handlers / tR…</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-tenant-rbac-mw" data-view-id="view-component-monolith" data-target-label="Tenancy + RBAC Middleware">
+    <rect x="617.7" y="394.0" width="190.0" height="108.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 629.7 394.0 H 795.7 Q 807.7 394.0 807.7 406.0 V 413.0 H 617.7 V 406.0 Q 617.7 394.0 629.7 394.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="712.7" y="404.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="712.7" y="446.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Tenancy + RBAC</text>
+    <text x="712.7" y="464.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Middleware</text>
+    <text x="712.7" y="482.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript middleware</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-auth" data-view-id="view-component-monolith" data-target-label="Auth Integration">
+    <rect x="92.0" y="642.0" width="185.9" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 104.0 642.0 H 265.9 Q 277.9 642.0 277.9 654.0 V 661.0 H 92.0 V 654.0 Q 92.0 642.0 104.0 642.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="185.0" y="652.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="185.0" y="694.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Auth Integration</text>
+    <text x="185.0" y="712.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">WorkOS SDK</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-magic-link" data-view-id="view-component-monolith" data-target-label="Magic-Link Service">
+    <rect x="96.1" y="274.0" width="202.2" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 108.1 274.0 H 286.2 Q 298.2 274.0 298.2 286.0 V 293.0 H 96.1 V 286.0 Q 96.1 274.0 108.1 274.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="197.1" y="284.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="197.1" y="326.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Magic-Link Service</text>
+    <text x="197.1" y="344.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-document-svc" data-view-id="view-component-monolith" data-target-label="Document Service">
+    <rect x="344.3" y="274.0" width="209.1" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 356.3 274.0 H 541.4 Q 553.4 274.0 553.4 286.0 V 293.0 H 344.3 V 286.0 Q 344.3 274.0 356.3 274.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="448.8" y="284.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="448.8" y="326.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Document Service</text>
+    <text x="448.8" y="344.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript domain module</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-template-svc" data-view-id="view-component-monolith" data-target-label="Template Service">
+    <rect x="608.2" y="274.0" width="209.1" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 620.2 274.0 H 805.3 Q 817.3 274.0 817.3 286.0 V 293.0 H 608.2 V 286.0 Q 608.2 274.0 620.2 274.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="712.7" y="284.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="712.7" y="326.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Template Service</text>
+    <text x="712.7" y="344.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript domain module</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-signing-svc" data-view-id="view-component-monolith" data-target-label="Signing Service">
+    <rect x="92.6" y="394.0" width="209.1" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 104.6 394.0 H 289.7 Q 301.7 394.0 301.7 406.0 V 413.0 H 92.6 V 406.0 Q 92.6 394.0 104.6 394.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="197.1" y="404.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="197.1" y="446.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Signing Service</text>
+    <text x="197.1" y="464.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript domain module</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-audit-writer" data-view-id="view-component-monolith" data-target-label="Audit Writer (sync)">
+    <rect x="92.0" y="514.0" width="210.3" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 104.0 514.0 H 290.3 Q 302.3 514.0 302.3 526.0 V 533.0 H 92.0 V 526.0 Q 92.0 514.0 104.0 514.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="197.1" y="524.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="197.1" y="566.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Audit Writer (sync)</text>
+    <text x="197.1" y="584.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript domain module</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-webhook-mgr" data-view-id="view-component-monolith" data-target-label="Webhook Manager">
+    <rect x="344.3" y="394.0" width="209.1" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 356.3 394.0 H 541.4 Q 553.4 394.0 553.4 406.0 V 413.0 H 344.3 V 406.0 Q 344.3 394.0 356.3 394.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="448.8" y="404.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="448.8" y="446.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Webhook Manager</text>
+    <text x="448.8" y="464.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript domain module</text>
+  </g>
+  <g class="diagram-node" data-element="slate" data-element-id="container-postgres" data-view-id="view-component-monolith" data-target-label="Postgres">
+    <rect x="926.0" y="176.0" width="196.4" height="90.0" rx="12" fill="var(--color-element-slate-fill)" stroke="var(--color-element-slate)" stroke-width="2" />
+    <path d="M 938.0 176.0 H 1110.4 Q 1122.4 176.0 1122.4 188.0 V 195.0 H 926.0 V 188.0 Q 926.0 176.0 938.0 176.0 Z" data-node-header="true" fill="var(--color-element-slate)" fill-opacity="0.18" />
+    <text x="1024.2" y="186.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Database</text>
+    <text x="1024.2" y="228.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Postgres</text>
+    <text x="1024.2" y="246.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Postgres (Neon or RDS)</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-workos" data-view-id="view-component-monolith" data-target-label="WorkOS">
+    <rect x="76.0" y="798.0" width="180.0" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 88.0 798.0 H 244.0 Q 256.0 798.0 256.0 810.0 V 817.0 H 76.0 V 810.0 Q 76.0 798.0 88.0 798.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="166.0" y="808.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="166.0" y="850.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">WorkOS</text>
+    <text x="166.0" y="868.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">WorkOS</text>
+  </g>
+</svg>

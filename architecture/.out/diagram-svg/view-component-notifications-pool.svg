@@ -1,0 +1,68 @@
+<svg viewBox="0 0 921 576" width="921" height="576" xmlns="http://www.w3.org/2000/svg" data-routing-version="2">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--color-border-strong)" />
+    </marker>
+  </defs>
+  <rect x="64.0" y="130.0" width="528.9" height="282.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="80.0" y="152.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Notifications Pool [Container Boundary]</text>
+  <g data-relationship-id="rel-jobrunner-notifications-to-pg" data-view-id="view-component-notifications-pool" data-target-label="Poll/lock notifications queue rows">
+    <path d="M 217.4 154.0 L 217.4 137.0 Q 217.4 127.0 227.4 127.0 L 749.1 127.0 Q 759.1 127.0 759.1 137.0 L 759.1 176.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 217.4 154.0 L 217.4 137.0 Q 217.4 127.0 227.4 127.0 L 749.1 127.0 Q 759.1 127.0 759.1 137.0 L 759.1 176.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-jobrunner-notifications-dispatch-email" data-view-id="view-component-notifications-pool" data-target-label="Dispatch email jobs">
+    <path d="M 342.9 199.0 L 384.9 199.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 342.9 199.0 L 384.9 199.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-jobrunner-notifications-dispatch-reminder" data-view-id="view-component-notifications-pool" data-target-label="Dispatch reminder jobs">
+    <path d="M 217.4 244.0 L 217.4 259.0 Q 217.4 262.0 217.4 259.0 L 217.4 259.0 Q 217.4 256.0 217.4 259.0 L 217.4 274.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 217.4 244.0 L 217.4 259.0 Q 217.4 262.0 217.4 259.0 L 217.4 259.0 Q 217.4 256.0 217.4 259.0 L 217.4 274.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-email-to-emailprovider" data-view-id="view-component-notifications-pool" data-target-label="Send transactional email">
+    <path d="M 474.9 244.0 L 474.9 378.0 Q 474.9 388.0 464.9 388.0 L 176.0 388.0 Q 166.0 388.0 166.0 398.0 L 166.0 430.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 474.9 244.0 L 474.9 378.0 Q 474.9 388.0 464.9 388.0 L 176.0 388.0 Q 166.0 388.0 166.0 398.0 L 166.0 430.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-email-enqueue-audit" data-view-id="view-component-notifications-pool" data-target-label="Enqueue append_audit on the audit queue">
+    <path d="M 564.9 199.0 L 612.9 199.0 Q 622.9 199.0 622.9 209.0 L 622.9 211.0 Q 622.9 221.0 632.9 221.0 L 660.9 221.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 564.9 199.0 L 612.9 199.0 Q 622.9 199.0 622.9 209.0 L 622.9 211.0 Q 622.9 221.0 632.9 221.0 L 660.9 221.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-reminder-to-pg" data-view-id="view-component-notifications-pool" data-target-label="Re-enqueue reminder jobs and expire stale tokens">
+    <path d="M 318.5 319.0 L 336.0 319.0 Q 336.5 319.0 336.5 318.5 L 336.5 318.5 Q 336.5 318.0 337.0 318.0 L 749.1 318.0 Q 759.1 318.0 759.1 308.0 L 759.1 266.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 318.5 319.0 L 336.0 319.0 Q 336.5 319.0 336.5 318.5 L 336.5 318.5 Q 336.5 318.0 337.0 318.0 L 749.1 318.0 Q 759.1 318.0 759.1 308.0 L 759.1 266.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-jobrunner-notifications" data-view-id="view-component-notifications-pool" data-target-label="Notifications Job Runner">
+    <rect x="92.0" y="154.0" width="250.9" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 104.0 154.0 H 330.9 Q 342.9 154.0 342.9 166.0 V 173.0 H 92.0 V 166.0 Q 92.0 154.0 104.0 154.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="217.4" y="164.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="217.4" y="206.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Notifications Job Runner</text>
+    <text x="217.4" y="224.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">pg-boss</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-email-handler" data-view-id="view-component-notifications-pool" data-target-label="Email Handler">
+    <rect x="384.9" y="154.0" width="180.0" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 396.9 154.0 H 552.9 Q 564.9 154.0 564.9 166.0 V 173.0 H 384.9 V 166.0 Q 384.9 154.0 396.9 154.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="474.9" y="164.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="474.9" y="206.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Email Handler</text>
+    <text x="474.9" y="224.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript handler</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-reminder-scheduler" data-view-id="view-component-notifications-pool" data-target-label="Reminder Scheduler">
+    <rect x="116.4" y="274.0" width="202.2" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 128.4 274.0 H 306.5 Q 318.5 274.0 318.5 286.0 V 293.0 H 116.4 V 286.0 Q 116.4 274.0 128.4 274.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="217.4" y="284.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="217.4" y="326.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Reminder Scheduler</text>
+    <text x="217.4" y="344.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript handler</text>
+  </g>
+  <g class="diagram-node" data-element="slate" data-element-id="container-postgres" data-view-id="view-component-notifications-pool" data-target-label="Postgres">
+    <rect x="660.9" y="176.0" width="196.4" height="90.0" rx="12" fill="var(--color-element-slate-fill)" stroke="var(--color-element-slate)" stroke-width="2" />
+    <path d="M 672.9 176.0 H 845.2 Q 857.2 176.0 857.2 188.0 V 195.0 H 660.9 V 188.0 Q 660.9 176.0 672.9 176.0 Z" data-node-header="true" fill="var(--color-element-slate)" fill-opacity="0.18" />
+    <text x="759.1" y="186.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Database</text>
+    <text x="759.1" y="228.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Postgres</text>
+    <text x="759.1" y="246.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Postgres (Neon or RDS)</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-email" data-view-id="view-component-notifications-pool" data-target-label="Email Provider">
+    <rect x="76.0" y="430.0" width="180.0" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 88.0 430.0 H 244.0 Q 256.0 430.0 256.0 442.0 V 449.0 H 76.0 V 442.0 Q 76.0 430.0 88.0 430.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="166.0" y="440.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="166.0" y="482.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Email Provider</text>
+    <text x="166.0" y="500.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Postmark or Resend</text>
+  </g>
+</svg>

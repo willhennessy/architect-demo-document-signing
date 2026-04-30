@@ -1,0 +1,30 @@
+version: 2
+id: "view-component-notifications-pool"
+type: "component"
+title: "Component View — Notifications Pool"
+audience:
+  - "senior_architects"
+  - "new_hires"
+purpose: "Show what runs inside the notifications worker pool and what it is allowed to talk to."
+scope: "Internal handlers of container-notifications-pool only."
+source_model: "architecture/model.yaml"
+parent_container_id: "container-notifications-pool"
+element_ids:
+  - "comp-jobrunner-notifications"
+  - "comp-email-handler"
+  - "comp-reminder-scheduler"
+  - "container-postgres"
+  - "ext-email"
+relationship_ids:
+  - "rel-jobrunner-notifications-to-pg"
+  - "rel-jobrunner-notifications-dispatch-email"
+  - "rel-jobrunner-notifications-dispatch-reminder"
+  - "rel-email-to-emailprovider"
+  - "rel-email-enqueue-audit"
+  - "rel-reminder-to-pg"
+assumptions:
+  - text: "Email + reminders are similar in shape (light I/O, schedulable) and safe to colocate in one pool."
+    confidence: "strong_inference"
+unknowns: []
+notes:
+  - "On send, the email handler enqueues an append_audit job for the audit pool rather than writing audit events directly."

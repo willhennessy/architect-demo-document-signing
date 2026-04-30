@@ -1,0 +1,29 @@
+version: 2
+id: "view-component-audit-pool"
+type: "component"
+title: "Component View — Audit Pool"
+audience:
+  - "senior_architects"
+  - "new_hires"
+purpose: "Show what runs inside the compliance-critical audit worker pool and what it is allowed to talk to."
+scope: "Internal handlers of container-audit-pool only."
+source_model: "architecture/model.yaml"
+parent_container_id: "container-audit-pool"
+element_ids:
+  - "comp-jobrunner-audit"
+  - "comp-audit-async-appender"
+  - "comp-audit-finalizer"
+  - "container-postgres"
+relationship_ids:
+  - "rel-jobrunner-audit-to-pg"
+  - "rel-jobrunner-audit-dispatch-appender"
+  - "rel-jobrunner-audit-dispatch-finalizer"
+  - "rel-audit-async-appender-to-pg"
+  - "rel-auditfinalizer-to-pg"
+assumptions:
+  - text: "Compliance-critical work belongs in its own small isolated pool with stricter monitoring and alert-on-error."
+    confidence: "strong_inference"
+unknowns: []
+notes:
+  - "The async appender is the single writer for audit_events from async paths — preserving chain ordering per document under one writer."
+  - "Sync-path audit writes still happen inline in the request transaction via comp-audit-writer (in container-web)."

@@ -1,0 +1,64 @@
+<svg viewBox="0 0 2696 352" width="2696" height="352" xmlns="http://www.w3.org/2000/svg" data-routing-version="2">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--color-border-strong)" />
+    </marker>
+  </defs>
+  <rect x="24.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="40.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Edge / Load Balancer</text>
+  <rect x="412.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="428.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">App Compute</text>
+  <rect x="800.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="816.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">PDF Sealing Compute</text>
+  <rect x="1188.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="1204.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Webhook Delivery Compute</text>
+  <rect x="1576.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="1592.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Audit Compute</text>
+  <rect x="1964.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="1980.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Notifications Compute</text>
+  <rect x="2352.0" y="80.0" width="320.0" height="240.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="2368.0" y="102.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Managed Postgres</text>
+  
+  <g class="diagram-node" data-element="plum" data-element-id="container-web" data-view-id="view-deployment" data-target-label="Web / API Monolith">
+    <rect x="440.0" y="130.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-plum-fill)" stroke="var(--color-element-plum)" stroke-width="2" />
+    <path d="M 452.0 130.0 H 662.6 Q 674.6 130.0 674.6 142.0 V 149.0 H 440.0 V 142.0 Q 440.0 130.0 452.0 130.0 Z" data-node-header="true" fill="var(--color-element-plum)" fill-opacity="0.18" />
+    <text x="557.3" y="140.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Container</text>
+    <text x="557.3" y="182.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Web / API Monolith</text>
+    <text x="557.3" y="200.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Next.js (TypeScript), tRPC/…</text>
+  </g>
+  <g class="diagram-node" data-element="plum" data-element-id="container-pdf-pool" data-view-id="view-deployment" data-target-label="PDF Sealing Pool">
+    <rect x="828.0" y="130.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-plum-fill)" stroke="var(--color-element-plum)" stroke-width="2" />
+    <path d="M 840.0 130.0 H 1050.6 Q 1062.6 130.0 1062.6 142.0 V 149.0 H 828.0 V 142.0 Q 828.0 130.0 840.0 130.0 Z" data-node-header="true" fill="var(--color-element-plum)" fill-opacity="0.18" />
+    <text x="945.3" y="140.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Container</text>
+    <text x="945.3" y="182.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">PDF Sealing Pool</text>
+    <text x="945.3" y="200.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Node (TypeScript), pg-boss,…</text>
+  </g>
+  <g class="diagram-node" data-element="plum" data-element-id="container-webhook-pool" data-view-id="view-deployment" data-target-label="Webhook Delivery Pool">
+    <rect x="1216.0" y="130.0" width="226.5" height="90.0" rx="12" fill="var(--color-element-plum-fill)" stroke="var(--color-element-plum)" stroke-width="2" />
+    <path d="M 1228.0 130.0 H 1430.5 Q 1442.5 130.0 1442.5 142.0 V 149.0 H 1216.0 V 142.0 Q 1216.0 130.0 1228.0 130.0 Z" data-node-header="true" fill="var(--color-element-plum)" fill-opacity="0.18" />
+    <text x="1329.3" y="140.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Container</text>
+    <text x="1329.3" y="182.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Webhook Delivery Pool</text>
+    <text x="1329.3" y="200.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Node (TypeScript), pg-boss</text>
+  </g>
+  <g class="diagram-node" data-element="plum" data-element-id="container-audit-pool" data-view-id="view-deployment" data-target-label="Audit Pool">
+    <rect x="1604.0" y="130.0" width="221.9" height="90.0" rx="12" fill="var(--color-element-plum-fill)" stroke="var(--color-element-plum)" stroke-width="2" />
+    <path d="M 1616.0 130.0 H 1813.9 Q 1825.9 130.0 1825.9 142.0 V 149.0 H 1604.0 V 142.0 Q 1604.0 130.0 1616.0 130.0 Z" data-node-header="true" fill="var(--color-element-plum)" fill-opacity="0.18" />
+    <text x="1714.9" y="140.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Container</text>
+    <text x="1714.9" y="182.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Audit Pool</text>
+    <text x="1714.9" y="200.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Node (TypeScript), pg-boss</text>
+  </g>
+  <g class="diagram-node" data-element="plum" data-element-id="container-notifications-pool" data-view-id="view-deployment" data-target-label="Notifications Pool">
+    <rect x="1992.0" y="130.0" width="221.9" height="90.0" rx="12" fill="var(--color-element-plum-fill)" stroke="var(--color-element-plum)" stroke-width="2" />
+    <path d="M 2004.0 130.0 H 2201.9 Q 2213.9 130.0 2213.9 142.0 V 149.0 H 1992.0 V 142.0 Q 1992.0 130.0 2004.0 130.0 Z" data-node-header="true" fill="var(--color-element-plum)" fill-opacity="0.18" />
+    <text x="2102.9" y="140.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Container</text>
+    <text x="2102.9" y="182.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Notifications Pool</text>
+    <text x="2102.9" y="200.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Node (TypeScript), pg-boss</text>
+  </g>
+  <g class="diagram-node" data-element="slate" data-element-id="container-postgres" data-view-id="view-deployment" data-target-label="Postgres">
+    <rect x="2380.0" y="130.0" width="196.4" height="90.0" rx="12" fill="var(--color-element-slate-fill)" stroke="var(--color-element-slate)" stroke-width="2" />
+    <path d="M 2392.0 130.0 H 2564.4 Q 2576.4 130.0 2576.4 142.0 V 149.0 H 2380.0 V 142.0 Q 2380.0 130.0 2392.0 130.0 Z" data-node-header="true" fill="var(--color-element-slate)" fill-opacity="0.18" />
+    <text x="2478.2" y="140.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Database</text>
+    <text x="2478.2" y="182.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Postgres</text>
+    <text x="2478.2" y="200.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Postgres (Neon or RDS)</text>
+  </g>
+</svg>

@@ -1,0 +1,57 @@
+<svg viewBox="0 0 812 576" width="812" height="576" xmlns="http://www.w3.org/2000/svg" data-routing-version="2">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--color-border-strong)" />
+    </marker>
+  </defs>
+  <rect x="64.0" y="130.0" width="420.0" height="282.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="80.0" y="152.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Webhook Delivery Pool [Container Boundary]</text>
+  <g data-relationship-id="rel-jobrunner-webhook-to-pg" data-view-id="view-component-webhook-pool" data-target-label="Poll/lock webhook-delivery queue rows">
+    <path d="M 294.2 319.0 L 303.4 319.0 Q 312.2 319.0 312.2 310.2 L 312.2 310.2 Q 312.2 301.5 320.9 301.5 L 640.2 301.5 Q 650.2 301.5 650.2 291.5 L 650.2 266.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 294.2 319.0 L 303.4 319.0 Q 312.2 319.0 312.2 310.2 L 312.2 310.2 Q 312.2 301.5 320.9 301.5 L 640.2 301.5 Q 650.2 301.5 650.2 291.5 L 650.2 266.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-jobrunner-webhook-dispatch" data-view-id="view-component-webhook-pool" data-target-label="Dispatch webhook delivery jobs">
+    <path d="M 193.1 274.0 L 193.1 259.0 Q 193.1 256.0 193.1 259.0 L 193.1 259.0 Q 193.1 262.0 193.1 259.0 L 193.1 244.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 193.1 274.0 L 193.1 259.0 Q 193.1 256.0 193.1 259.0 L 193.1 259.0 Q 193.1 262.0 193.1 259.0 L 193.1 244.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-webhookdeliverer-to-customer" data-view-id="view-component-webhook-pool" data-target-label="POST signed payload (HMAC) with retry/DLQ">
+    <path d="M 96.1 199.0 L 74.1 199.0 Q 64.1 199.0 64.1 209.0 L 64.1 402.0 Q 64.1 412.0 74.1 412.0 L 184.3 412.0 Q 193.3 412.0 193.3 421.0 L 193.3 430.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 96.1 199.0 L 74.1 199.0 Q 64.1 199.0 64.1 209.0 L 64.1 402.0 Q 64.1 412.0 74.1 412.0 L 184.3 412.0 Q 193.3 412.0 193.3 421.0 L 193.3 430.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-webhookdeliverer-to-pg" data-view-id="view-component-webhook-pool" data-target-label="Update delivery status / DLQ flag">
+    <path d="M 193.1 154.0 L 193.1 145.0 Q 193.1 136.0 193.1 145.0 L 193.1 145.0 Q 193.1 154.0 202.1 154.0 L 640.2 154.0 Q 650.2 154.0 650.2 164.0 L 650.2 176.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 193.1 154.0 L 193.1 145.0 Q 193.1 136.0 193.1 145.0 L 193.1 145.0 Q 193.1 154.0 202.1 154.0 L 640.2 154.0 Q 650.2 154.0 650.2 164.0 L 650.2 176.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-webhookdeliverer-enqueue-audit" data-view-id="view-component-webhook-pool" data-target-label="Enqueue append_audit on the audit queue">
+    <path d="M 290.1 199.0 L 401.1 199.0 Q 411.1 199.0 411.1 209.0 L 411.1 211.0 Q 411.1 221.0 421.1 221.0 L 552.0 221.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 290.1 199.0 L 401.1 199.0 Q 411.1 199.0 411.1 209.0 L 411.1 211.0 Q 411.1 221.0 421.1 221.0 L 552.0 221.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-jobrunner-webhook" data-view-id="view-component-webhook-pool" data-target-label="Webhook Job Runner">
+    <rect x="92.0" y="274.0" width="202.2" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 104.0 274.0 H 282.2 Q 294.2 274.0 294.2 286.0 V 293.0 H 92.0 V 286.0 Q 92.0 274.0 104.0 274.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="193.1" y="284.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="193.1" y="326.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Webhook Job Runner</text>
+    <text x="193.1" y="344.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">pg-boss</text>
+  </g>
+  <g class="diagram-node" data-element="teal" data-element-id="comp-webhook-deliverer" data-view-id="view-component-webhook-pool" data-target-label="Webhook Deliverer">
+    <rect x="96.1" y="154.0" width="194.0" height="90.0" rx="12" fill="var(--color-element-teal-fill)" stroke="var(--color-element-teal)" stroke-width="2" />
+    <path d="M 108.1 154.0 H 278.1 Q 290.1 154.0 290.1 166.0 V 173.0 H 96.1 V 166.0 Q 96.1 154.0 108.1 154.0 Z" data-node-header="true" fill="var(--color-element-teal)" fill-opacity="0.18" />
+    <text x="193.1" y="164.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Component</text>
+    <text x="193.1" y="206.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Webhook Deliverer</text>
+    <text x="193.1" y="224.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript handler</text>
+  </g>
+  <g class="diagram-node" data-element="slate" data-element-id="container-postgres" data-view-id="view-component-webhook-pool" data-target-label="Postgres">
+    <rect x="552.0" y="176.0" width="196.4" height="90.0" rx="12" fill="var(--color-element-slate-fill)" stroke="var(--color-element-slate)" stroke-width="2" />
+    <path d="M 564.0 176.0 H 736.4 Q 748.4 176.0 748.4 188.0 V 195.0 H 552.0 V 188.0 Q 552.0 176.0 564.0 176.0 Z" data-node-header="true" fill="var(--color-element-slate)" fill-opacity="0.18" />
+    <text x="650.2" y="186.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Database</text>
+    <text x="650.2" y="228.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Postgres</text>
+    <text x="650.2" y="246.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Postgres (Neon or RDS)</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-customer-system" data-view-id="view-component-webhook-pool" data-target-label="Customer System">
+    <rect x="76.0" y="430.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 88.0 430.0 H 298.6 Q 310.6 430.0 310.6 442.0 V 449.0 H 76.0 V 442.0 Q 76.0 430.0 88.0 430.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="193.3" y="440.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="193.3" y="482.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Customer System</text>
+    <text x="193.3" y="500.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Consume webhook events and …</text>
+  </g>
+</svg>

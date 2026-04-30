@@ -1,0 +1,29 @@
+version: 2
+id: "view-component-webhook-pool"
+type: "component"
+title: "Component View — Webhook Delivery Pool"
+audience:
+  - "senior_architects"
+  - "new_hires"
+purpose: "Show what runs inside the webhook-delivery worker pool and what it is allowed to talk to."
+scope: "Internal handlers of container-webhook-pool only."
+source_model: "architecture/model.yaml"
+parent_container_id: "container-webhook-pool"
+element_ids:
+  - "comp-jobrunner-webhook"
+  - "comp-webhook-deliverer"
+  - "container-postgres"
+  - "ext-customer-system"
+relationship_ids:
+  - "rel-jobrunner-webhook-to-pg"
+  - "rel-jobrunner-webhook-dispatch"
+  - "rel-webhookdeliverer-to-customer"
+  - "rel-webhookdeliverer-to-pg"
+  - "rel-webhookdeliverer-enqueue-audit"
+assumptions:
+  - text: "Retry-heavy outbound I/O benefits from many small instances and per-tenant rate limits; isolating the egress here keeps slow customers from starving other concerns."
+    confidence: "strong_inference"
+unknowns: []
+notes:
+  - "This is the only worker pool with arbitrary outbound egress."
+  - "DLQ + replay UI is rendered by the web monolith on top of webhook_deliveries rows this pool maintains."

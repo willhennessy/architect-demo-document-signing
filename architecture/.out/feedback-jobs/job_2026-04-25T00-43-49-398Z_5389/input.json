@@ -1,0 +1,19 @@
+{
+  "system_name": "Document Signing Platform",
+  "output_root": "/Users/will/code/document-signing",
+  "diagram_revision_id": "rev-8f29cbbfea0c",
+  "mode": "rich",
+  "comments": [
+    {
+      "index": 1,
+      "view_id": "view-component-worker",
+      "element_id": "comp-job-runner",
+      "relationship_id": null,
+      "target_label": "Job Runner",
+      "comment": "These jobs have different failure modes and resource profiles, so I wouldn’t run them all in one worker pool. PDF sealing is CPU-bound, webhooks are retry-heavy I/O, and audits are compliance-critical. Split them into separate workers."
+    }
+  ],
+  "job_id": "job_2026-04-25T00-43-49-398Z_5389",
+  "bridge_url": "http://127.0.0.1:8765",
+  "submitted_at": "2026-04-25T00:43:49Z"
+}

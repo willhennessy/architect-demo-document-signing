@@ -1,0 +1,35 @@
+version: 2
+id: "view-system-context"
+type: "system_context"
+title: "System Context — Document Signing Platform"
+audience:
+  - "senior_architects"
+  - "pms"
+  - "new_hires"
+purpose: "Show who uses the platform, who it depends on, and what the trust boundaries are."
+scope: "Document Signing Platform with its three external personas and four external systems."
+source_model: "architecture/model.yaml"
+element_ids:
+  - "person-admin"
+  - "person-signer"
+  - "person-developer"
+  - "system-doc-signing"
+  - "ext-workos"
+  - "ext-email"
+  - "ext-s3"
+  - "ext-customer-system"
+relationship_ids:
+  - "rel-admin-uses-system"
+  - "rel-signer-uses-system"
+  - "rel-developer-uses-api"
+  - "rel-system-uses-workos"
+  - "rel-system-uses-email"
+  - "rel-system-uses-s3"
+  - "rel-system-fires-webhooks"
+assumptions:
+  - text: "Three external personas (admin, signer, customer developer) cover the MVP audience."
+    confidence: "strong_inference"
+unknowns:
+  - "Whether public API access is broadly available at MVP or restricted to design partners."
+notes:
+  - "Trust boundaries: signers authenticate via single-use magic links scoped to one document; admins authenticate via WorkOS SSO."

@@ -1,0 +1,28 @@
+version: 2
+id: "view-component-pdf-pool"
+type: "component"
+title: "Component View — PDF Sealing Pool"
+audience:
+  - "senior_architects"
+  - "new_hires"
+purpose: "Show what runs inside the pdf-sealing worker pool and what it is allowed to talk to."
+scope: "Internal handlers of container-pdf-pool only."
+source_model: "architecture/model.yaml"
+parent_container_id: "container-pdf-pool"
+element_ids:
+  - "comp-jobrunner-pdf"
+  - "comp-pdf-sealer"
+  - "container-postgres"
+  - "ext-s3"
+relationship_ids:
+  - "rel-jobrunner-pdf-to-pg"
+  - "rel-jobrunner-pdf-dispatch"
+  - "rel-pdfsealer-to-s3"
+  - "rel-pdfsealer-to-pg"
+  - "rel-pdfsealer-enqueue-audit"
+assumptions:
+  - text: "PDF sealing is CPU-bound and benefits from CPU-tuned compute scaled on queue depth."
+    confidence: "strong_inference"
+unknowns: []
+notes:
+  - "On completion, the sealer enqueues an append_audit job for the audit pool rather than writing audit events itself — keeps a single async writer per document."

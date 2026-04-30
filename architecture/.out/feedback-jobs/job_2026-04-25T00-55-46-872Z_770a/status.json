@@ -1,0 +1,19 @@
+{
+  "submitted_comment_count": 1,
+  "submitted_revision_id": "rev-8f29cbbfea0c",
+  "needs_refresh": false,
+  "has_fast_result": false,
+  "has_final_result": false,
+  "diagram_path": "/Users/will/code/document-signing/architecture/diagram.html",
+  "output_root": "/Users/will/code/document-signing",
+  "bridge_url": "http://127.0.0.1:8765",
+  "job_id": "job_2026-04-25T00-55-46-872Z_770a",
+  "state": "blocked",
+  "message": "Plan file updated with the four-pool worker split (pdf-sealing, webhook-delivery, audit, notifications). Architecture artifacts (model.yaml, view-component-worker.yaml, view-deployment.yaml, summary.md) and the rerendered diagram are blocked behind plan approval — Plan Mode is currently read-only on everything except the plan file. Approve the plan to unblock the artifact rebuild.",
+  "timestamps": {
+    "received_at": "2026-04-25T00:55:46Z",
+    "acknowledged_at": "2026-04-25T00:57:11Z",
+    "blocked_at": "2026-04-25T00:59:19Z"
+  },
+  "refresh_hint": ""
+}

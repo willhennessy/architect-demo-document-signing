@@ -1,0 +1,1671 @@
+version: 2
+system_name: "Document Signing Platform"
+repo_archetype: "modular_monolith"
+
+elements:
+  # ---- People ----
+  - id: "person-admin"
+    name: "Admin / Sender"
+    aliases:
+      - "Tenant Administrator"
+      - "Sender"
+    kind: "person"
+    c4_level: "context"
+    description: "Tenant-side user who creates documents, manages templates, sends signing requests, and tracks status."
+    responsibility: "Author and dispatch envelopes; manage tenant configuration."
+    technology: ""
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "external"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://requirements/sender-admin"
+    tags:
+      - "actor"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "person-signer"
+    name: "Signer"
+    aliases:
+      - "Recipient"
+    kind: "person"
+    c4_level: "context"
+    description: "External recipient who enters via a single-use email magic link and signs a document."
+    responsibility: "Review and sign documents addressed to them."
+    technology: ""
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "external"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://requirements/signer-flow"
+    tags:
+      - "actor"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "person-developer"
+    name: "Customer Developer"
+    kind: "person"
+    c4_level: "context"
+    description: "Engineer at a customer company integrating with the platform's REST API and webhook callbacks."
+    responsibility: "Programmatic envelope creation and consumption of webhook events."
+    technology: ""
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "external"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://requirements/webhooks"
+    tags:
+      - "actor"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  # ---- External systems ----
+  - id: "ext-workos"
+    name: "WorkOS"
+    aliases:
+      - "Identity Provider"
+    kind: "external_system"
+    c4_level: "context"
+    description: "Managed identity service providing SSO (SAML/OIDC), directory sync, and SCIM provisioning for tenant admins."
+    responsibility: "Authenticate admin users; provision tenant directories."
+    technology: "WorkOS"
+    owned_data:
+      - "Admin identities (federated)"
+    system_of_record:
+      - "Admin user identity (federated)"
+    runtime_boundary: "external"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://assumptions/auth-vendor"
+    tags:
+      - "third-party"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-auth-vendor"
+      - "ev-req-rbac"
+
+  - id: "ext-email"
+    name: "Email Provider"
+    aliases:
+      - "Postmark"
+      - "Resend"
+    kind: "external_system"
+    c4_level: "context"
+    description: "Transactional email service used for signing invitations, magic links, reminders, and completion notices."
+    responsibility: "Deliver transactional emails reliably with bounce/complaint reporting."
+    technology: "Postmark or Resend"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "external"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://assumptions/email-vendor"
+    tags:
+      - "third-party"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-email-vendor"
+
+  - id: "ext-s3"
+    name: "Object Storage"
+    aliases:
+      - "S3"
+      - "R2"
+    kind: "external_system"
+    c4_level: "context"
+    description: "Tenant-prefixed object store for raw uploaded PDFs, sealed signed PDFs, and signature image assets."
+    responsibility: "Durable, encrypted blob storage with signed-URL access."
+    technology: "AWS S3 or Cloudflare R2"
+    owned_data:
+      - "Raw uploaded PDFs"
+      - "Sealed signed PDFs"
+      - "Signature images"
+    system_of_record:
+      - "Document binary content"
+    runtime_boundary: "data_store"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://assumptions/blob-store"
+    tags:
+      - "storage"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+
+  - id: "ext-customer-system"
+    name: "Customer System"
+    aliases:
+      - "Webhook Consumer"
+    kind: "external_system"
+    c4_level: "context"
+    description: "Customer-operated backend that receives signed webhook callbacks when documents and signatures change state."
+    responsibility: "Consume webhook events and reflect state in customer systems."
+    technology: ""
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "external"
+    deployable: false
+    external: true
+    parent_id: ""
+    source_paths:
+      - "plan://requirements/webhooks"
+    tags:
+      - "third-party"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  # ---- Our system at context level ----
+  - id: "system-doc-signing"
+    name: "Document Signing Platform"
+    kind: "software_system"
+    c4_level: "context"
+    description: "Multi-tenant B2B document signing platform: admin console, signer flow, REST API, async workers, and audit trail."
+    responsibility: "Own end-to-end envelope lifecycle: authoring, dispatch, signing, sealing, audit, and webhook fanout."
+    technology: "TypeScript monorepo (Next.js + Node worker)"
+    owned_data:
+      - "Tenants, users, memberships, roles"
+      - "Documents, recipients, fields, templates"
+      - "Signature events, audit events"
+      - "Webhook subscriptions and deliveries"
+      - "Magic-link tokens, sessions"
+      - "Job queue rows"
+    system_of_record:
+      - "Tenant directory and membership"
+      - "Document metadata and state"
+      - "Signature events (append-only)"
+      - "Audit events (append-only, hash-chained)"
+      - "Webhook subscriptions and delivery history"
+    runtime_boundary: "deployable"
+    deployable: true
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://system/scope"
+    tags:
+      - "platform"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-admin"
+      - "ev-req-signer"
+      - "ev-req-webhook"
+      - "ev-req-audit"
+      - "ev-req-rbac"
+      - "ev-req-async-reliability"
+      - "ev-req-data-ownership"
+
+  # ---- Containers ----
+  - id: "container-web"
+    name: "Web / API Monolith"
+    aliases:
+      - "Next.js App"
+      - "Web Service"
+    kind: "container"
+    c4_level: "container"
+    description: "Single deployable that serves the admin console (SSR), the signer flow (SSR), and the public REST API. Owns sync request handling, tenant scoping, RBAC, and transactional writes."
+    responsibility: "Serve user-facing UIs, expose REST API, enforce auth/RBAC/tenancy, write business state, and enqueue async jobs in-transaction."
+    technology: "Next.js (TypeScript), tRPC/REST, Drizzle or Prisma"
+    owned_data:
+      - "HTTP session state"
+    system_of_record:
+      - "Authoritative request handling for sync writes"
+    runtime_boundary: "deployable"
+    deployable: true
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://containers/web"
+    tags:
+      - "user-facing"
+      - "api"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+      - "ev-req-signer"
+      - "ev-req-rbac"
+      - "ev-trd-monolith"
+
+  - id: "container-worker"
+    name: "Background Worker"
+    aliases:
+      - "Job Runner"
+    kind: "container"
+    c4_level: "container"
+    description: "Node process that consumes pg-boss jobs and runs all async work: email send, webhook delivery, PDF sealing, reminder scheduling, audit chain finalization and verification."
+    responsibility: "Execute async, retry-aware work decoupled from the request path."
+    technology: "Node (TypeScript), pg-boss or River"
+    owned_data: []
+    system_of_record:
+      - "Async job execution status (within job rows)"
+    runtime_boundary: "deployable"
+    deployable: true
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://containers/worker"
+    tags:
+      - "async"
+      - "background"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+      - "ev-req-webhook"
+      - "ev-trd-monolith"
+
+  - id: "container-postgres"
+    name: "Postgres"
+    aliases:
+      - "Primary DB"
+      - "Source of Truth"
+    kind: "database"
+    c4_level: "container"
+    description: "Single managed Postgres cluster acting as the canonical source of truth and as the host for the pg-boss job queue. Row-level multi-tenancy enforced via tenant_id + RLS backstop. Append-only audit and signature tables enforced by a restricted DB role."
+    responsibility: "Persist all canonical business state; host the durable job queue for async work."
+    technology: "Postgres (Neon or RDS)"
+    owned_data:
+      - "tenants, memberships, users, roles"
+      - "documents, document_versions, recipients, fields"
+      - "templates, template_versions"
+      - "signature_events (append-only)"
+      - "audit_events (append-only, hash-chained)"
+      - "webhook_subscriptions, webhook_deliveries"
+      - "magic_link_tokens"
+      - "pg-boss jobs"
+    system_of_record:
+      - "All canonical business state"
+      - "Job queue state"
+    runtime_boundary: "data_store"
+    deployable: true
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://containers/postgres"
+    tags:
+      - "storage"
+      - "queue"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+      - "ev-req-audit"
+      - "ev-trd-tenancy"
+      - "ev-trd-queue"
+
+  # ---- Components inside container-web ----
+  - id: "comp-admin-ui"
+    name: "Admin Console"
+    kind: "component"
+    c4_level: "component"
+    description: "Server-rendered React UI for tenant admins to manage documents, templates, recipients, webhooks, members, and to view dashboards and audit trails."
+    responsibility: "Sender/admin experience surface."
+    technology: "Next.js (React, SSR)"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/admin-ui"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "comp-signer-ui"
+    name: "Signer UI"
+    kind: "component"
+    c4_level: "component"
+    description: "Server-rendered signer flow entered via magic link. Restricted to signer actions on a single document."
+    responsibility: "Render document and accept signer input; submit signature."
+    technology: "Next.js (React, SSR)"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/signer-ui"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "comp-rest-api"
+    name: "Public REST API"
+    kind: "component"
+    c4_level: "component"
+    description: "Versioned REST/tRPC surface for customer integrations: create envelope, get status, list deliveries, manage webhooks."
+    responsibility: "Expose programmatic envelope and webhook management."
+    technology: "Next.js Route Handlers / tRPC"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/rest-api"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  - id: "comp-tenant-rbac-mw"
+    name: "Tenancy + RBAC Middleware"
+    kind: "component"
+    c4_level: "component"
+    description: "Request middleware that resolves the active tenant from the session, sets the Postgres session var driving RLS, and enforces role-based authorization on every protected route."
+    responsibility: "Enforce tenant isolation and RBAC at the request boundary."
+    technology: "TypeScript middleware"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/tenant-rbac"
+    tags:
+      - "security"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-rbac"
+      - "ev-trd-tenancy"
+
+  - id: "comp-auth"
+    name: "Auth Integration"
+    kind: "component"
+    c4_level: "component"
+    description: "Handles WorkOS SSO callbacks for admin login and issues signed httpOnly session cookies."
+    responsibility: "Federate admin authentication via WorkOS; manage admin sessions."
+    technology: "WorkOS SDK"
+    owned_data:
+      - "Admin session cookies"
+    system_of_record:
+      - "Active admin session bindings"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/auth"
+    tags:
+      - "security"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-auth-vendor"
+      - "ev-req-rbac"
+
+  - id: "comp-magic-link"
+    name: "Magic-Link Service"
+    kind: "component"
+    c4_level: "component"
+    description: "Mints, hashes, validates, and consumes single-use, short-TTL signer tokens scoped to (document_id, recipient_id)."
+    responsibility: "Authenticate signers without account creation."
+    technology: "TypeScript"
+    owned_data:
+      - "Magic-link token hashes"
+    system_of_record:
+      - "Magic-link token issuance and consumption"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/magic-link"
+    tags:
+      - "security"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "comp-document-svc"
+    name: "Document Service"
+    kind: "component"
+    c4_level: "component"
+    description: "Domain module owning document and recipient CRUD, lifecycle transitions, and field placement."
+    responsibility: "Authoritative writes for document state."
+    technology: "TypeScript domain module"
+    owned_data:
+      - "documents, recipients, fields"
+    system_of_record:
+      - "Document metadata and state"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/document-svc"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "comp-template-svc"
+    name: "Template Service"
+    kind: "component"
+    c4_level: "component"
+    description: "Domain module owning template versions and template-to-document instantiation."
+    responsibility: "Manage versioned templates."
+    technology: "TypeScript domain module"
+    owned_data:
+      - "templates, template_versions"
+    system_of_record:
+      - "Template versions"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/template-svc"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "comp-signing-svc"
+    name: "Signing Service"
+    kind: "component"
+    c4_level: "component"
+    description: "Accepts signature submissions, writes the signature event, advances document state, and enqueues sealing, webhook, and notification jobs in the same transaction."
+    responsibility: "Authoritative write for signature events."
+    technology: "TypeScript domain module"
+    owned_data:
+      - "signature_events"
+    system_of_record:
+      - "Signature events (append-only)"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/signing-svc"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+      - "ev-req-async-reliability"
+
+  - id: "comp-audit-writer"
+    name: "Audit Writer"
+    kind: "component"
+    c4_level: "component"
+    description: "Synchronous, append-only writer for audit_events. Computes prev_hash for the document's audit chain at write time."
+    responsibility: "Write hash-chained audit events for every meaningful transition."
+    technology: "TypeScript domain module"
+    owned_data:
+      - "audit_events"
+    system_of_record:
+      - "Audit events (append-only, hash-chained)"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/audit-writer"
+    tags:
+      - "security"
+      - "compliance"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+      - "ev-trd-audit"
+
+  - id: "comp-webhook-mgr"
+    name: "Webhook Manager"
+    kind: "component"
+    c4_level: "component"
+    description: "Owns webhook subscription configuration and creates webhook_delivery rows + enqueues delivery jobs in-transaction with the originating business write."
+    responsibility: "Subscribe, fan out, and persist intent for webhook deliveries."
+    technology: "TypeScript domain module"
+    owned_data:
+      - "webhook_subscriptions"
+      - "webhook_deliveries (intent rows)"
+    system_of_record:
+      - "Webhook subscription config"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-web"
+    source_paths:
+      - "plan://components/webhook-mgr"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  # ---- Components inside container-worker ----
+  - id: "comp-job-runner"
+    name: "Job Runner"
+    kind: "component"
+    c4_level: "component"
+    description: "pg-boss runner that polls and locks job rows, dispatches them to typed handlers, and records attempt history."
+    responsibility: "Reliable, retry-aware job dispatch."
+    technology: "pg-boss or River"
+    owned_data: []
+    system_of_record:
+      - "Job execution attempts"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-worker"
+    source_paths:
+      - "plan://components/job-runner"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+      - "ev-trd-queue"
+
+  - id: "comp-email-handler"
+    name: "Email Handler"
+    kind: "component"
+    c4_level: "component"
+    description: "Job handler that renders and sends transactional emails (invitations, magic links, reminders, completion notices) via the email provider."
+    responsibility: "Deliver transactional email."
+    technology: "TypeScript handler"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-worker"
+    source_paths:
+      - "plan://components/email-handler"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+      - "ev-asm-email-vendor"
+
+  - id: "comp-webhook-deliverer"
+    name: "Webhook Deliverer"
+    kind: "component"
+    c4_level: "component"
+    description: "Job handler that picks due webhook_delivery rows, HMAC-signs the payload, POSTs to customer URLs with timeout, and applies exponential backoff with jitter. Terminal failures land in a DLQ visible to admins for replay."
+    responsibility: "Reliable, signed, retry-bounded webhook delivery."
+    technology: "TypeScript handler"
+    owned_data:
+      - "webhook_deliveries (status updates)"
+    system_of_record:
+      - "Webhook delivery attempt history"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-worker"
+    source_paths:
+      - "plan://components/webhook-deliverer"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+      - "ev-req-async-reliability"
+
+  - id: "comp-pdf-sealer"
+    name: "PDF Sealer"
+    kind: "component"
+    c4_level: "component"
+    description: "Job handler that flattens fields, embeds signature images, writes the sealed PDF to S3, and persists the SHA-256 of the sealed bytes on the document."
+    responsibility: "Produce the canonical signed PDF artifact."
+    technology: "pdf-lib (Node)"
+    owned_data: []
+    system_of_record:
+      - "Sealed PDF SHA-256"
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-worker"
+    source_paths:
+      - "plan://components/pdf-sealer"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+      - "ev-req-data-ownership"
+
+  - id: "comp-reminder-scheduler"
+    name: "Reminder Scheduler"
+    kind: "component"
+    c4_level: "component"
+    description: "Periodic job that re-enqueues invitation reminders based on per-tenant policy and expires stale magic links / documents."
+    responsibility: "Drive timed reminders and expirations."
+    technology: "TypeScript handler"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-worker"
+    source_paths:
+      - "plan://components/reminder-scheduler"
+    tags: []
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+
+  - id: "comp-audit-finalizer"
+    name: "Audit Finalizer"
+    kind: "component"
+    c4_level: "component"
+    description: "Periodic job that walks each document's audit chain end-to-end and verifies hash-chain integrity, flagging breaks for operator review."
+    responsibility: "Continuous verification of the audit chain."
+    technology: "TypeScript handler"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "internal_module"
+    deployable: false
+    external: false
+    parent_id: "container-worker"
+    source_paths:
+      - "plan://components/audit-finalizer"
+    tags:
+      - "security"
+      - "compliance"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+      - "ev-trd-audit"
+
+  # ---- Deployment nodes ----
+  - id: "node-edge"
+    name: "Edge / Load Balancer"
+    kind: "deployment_node"
+    c4_level: "deployment"
+    description: "Managed edge / load balancer terminating TLS and routing inbound traffic to the web app."
+    responsibility: "TLS termination and request routing."
+    technology: "Fly.io / Render / Cloudflare"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "network_zone"
+    deployable: false
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://deployment/edge"
+    tags: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+
+  - id: "node-app"
+    name: "App Compute"
+    kind: "deployment_node"
+    c4_level: "deployment"
+    description: "Container compute hosting the Next.js Web/API monolith, scaled horizontally on CPU/RAM."
+    responsibility: "Run the web/API process."
+    technology: "Fly Machines / Render Web Service"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "network_zone"
+    deployable: false
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://deployment/app"
+    tags: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+
+  - id: "node-worker"
+    name: "Worker Compute"
+    kind: "deployment_node"
+    c4_level: "deployment"
+    description: "Container compute hosting the background worker process, scaled on queue depth."
+    responsibility: "Run the worker process."
+    technology: "Fly Machines / Render Background Worker"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "network_zone"
+    deployable: false
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://deployment/worker"
+    tags: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+      - "ev-req-async-reliability"
+
+  - id: "node-db"
+    name: "Managed Postgres"
+    kind: "deployment_node"
+    c4_level: "deployment"
+    description: "Managed Postgres instance with daily snapshots and point-in-time recovery (~7-14 days)."
+    responsibility: "Host the primary DB and pg-boss queue."
+    technology: "Neon / Amazon RDS"
+    owned_data: []
+    system_of_record: []
+    runtime_boundary: "network_zone"
+    deployable: false
+    external: false
+    parent_id: ""
+    source_paths:
+      - "plan://deployment/db"
+    tags: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+      - "ev-req-data-ownership"
+
+relationships:
+  # ---- Context-level edges ----
+  - id: "rel-admin-uses-system"
+    source_id: "person-admin"
+    target_id: "system-doc-signing"
+    label: "Authors and tracks envelopes"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Documents"
+      - "Templates"
+      - "Recipients"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "rel-signer-uses-system"
+    source_id: "person-signer"
+    target_id: "system-doc-signing"
+    label: "Signs via magic link"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Magic-link token"
+      - "Signature submission"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-developer-uses-api"
+    source_id: "person-developer"
+    target_id: "system-doc-signing"
+    label: "Calls REST API; receives webhooks"
+    interaction_type: "calls"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Envelope payloads"
+      - "Webhook events"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  - id: "rel-system-uses-workos"
+    source_id: "system-doc-signing"
+    target_id: "ext-workos"
+    label: "Authenticates admins (SSO/SCIM)"
+    interaction_type: "authenticates_with"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Admin identity assertions"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-auth-vendor"
+      - "ev-req-rbac"
+
+  - id: "rel-system-uses-email"
+    source_id: "system-doc-signing"
+    target_id: "ext-email"
+    label: "Sends transactional email"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "async"
+    protocol: "https"
+    data_objects:
+      - "Invitation emails"
+      - "Magic-link emails"
+      - "Reminders"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-email-vendor"
+
+  - id: "rel-system-uses-s3"
+    source_id: "system-doc-signing"
+    target_id: "ext-s3"
+    label: "Stores PDFs and assets"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "storage"
+    protocol: "s3"
+    data_objects:
+      - "Raw PDFs"
+      - "Sealed PDFs"
+      - "Signature images"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+
+  - id: "rel-system-fires-webhooks"
+    source_id: "system-doc-signing"
+    target_id: "ext-customer-system"
+    label: "Delivers signed webhook callbacks"
+    interaction_type: "publishes"
+    directionality: "unidirectional"
+    sync_async: "async"
+    protocol: "https"
+    data_objects:
+      - "document.* and signature.* events"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-webhook"
+      - "ev-req-async-reliability"
+
+  # ---- Container-level edges ----
+  - id: "rel-admin-to-web"
+    source_id: "person-admin"
+    target_id: "container-web"
+    label: "Admin console (HTTPS)"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Admin session"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "rel-signer-to-web"
+    source_id: "person-signer"
+    target_id: "container-web"
+    label: "Signer flow via magic link"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Magic-link token"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-developer-to-web"
+    source_id: "person-developer"
+    target_id: "container-web"
+    label: "REST API calls"
+    interaction_type: "calls"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Envelope payloads"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  - id: "rel-web-to-workos"
+    source_id: "container-web"
+    target_id: "ext-workos"
+    label: "Federated admin login"
+    interaction_type: "authenticates_with"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "OIDC/SAML assertions"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-auth-vendor"
+
+  - id: "rel-web-to-postgres"
+    source_id: "container-web"
+    target_id: "container-postgres"
+    label: "Transactional reads/writes (with RLS)"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "Tenants, documents, recipients, signature_events, audit_events, webhook_subscriptions, webhook_deliveries"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-data-ownership"
+      - "ev-req-rbac"
+
+  - id: "rel-web-to-s3"
+    source_id: "container-web"
+    target_id: "ext-s3"
+    label: "Upload raw PDFs; serve signed URLs"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "storage"
+    protocol: "s3"
+    data_objects:
+      - "Raw PDFs"
+      - "Signed-URL fetches"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+
+  - id: "rel-web-enqueues-jobs"
+    source_id: "container-web"
+    target_id: "container-postgres"
+    label: "Enqueue jobs (in-transaction with business writes)"
+    interaction_type: "writes"
+    directionality: "unidirectional"
+    sync_async: "async"
+    protocol: "sql"
+    data_objects:
+      - "send_invitation"
+      - "fire_webhook"
+      - "seal_pdf"
+      - "notify_sender"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+      - "ev-trd-queue"
+
+  - id: "rel-worker-to-postgres"
+    source_id: "container-worker"
+    target_id: "container-postgres"
+    label: "Poll/lock jobs; update business state"
+    interaction_type: "reads"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "Job rows"
+      - "Document state"
+      - "Webhook deliveries"
+      - "Audit events"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+      - "ev-trd-queue"
+
+  - id: "rel-worker-to-s3"
+    source_id: "container-worker"
+    target_id: "ext-s3"
+    label: "Write sealed PDFs"
+    interaction_type: "writes"
+    directionality: "unidirectional"
+    sync_async: "storage"
+    protocol: "s3"
+    data_objects:
+      - "Sealed PDFs"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+      - "ev-req-data-ownership"
+
+  - id: "rel-worker-to-email"
+    source_id: "container-worker"
+    target_id: "ext-email"
+    label: "Send transactional email"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "async"
+    protocol: "https"
+    data_objects:
+      - "Invitation"
+      - "Magic-link"
+      - "Reminder"
+      - "Completion"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-email-vendor"
+      - "ev-req-async-reliability"
+
+  - id: "rel-worker-to-customer"
+    source_id: "container-worker"
+    target_id: "ext-customer-system"
+    label: "HMAC-signed webhook delivery (with retry/DLQ)"
+    interaction_type: "publishes"
+    directionality: "unidirectional"
+    sync_async: "async"
+    protocol: "https"
+    data_objects:
+      - "document.* events"
+      - "signature.* events"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-webhook"
+      - "ev-req-async-reliability"
+
+  # ---- Component-level edges (container-web internals) ----
+  - id: "rel-adminui-to-restapi"
+    source_id: "comp-admin-ui"
+    target_id: "comp-rest-api"
+    label: "Same-process calls"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Admin requests"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "rel-restapi-to-mw"
+    source_id: "comp-rest-api"
+    target_id: "comp-tenant-rbac-mw"
+    label: "Wraps every protected route"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Request context"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-rbac"
+
+  - id: "rel-mw-to-auth"
+    source_id: "comp-tenant-rbac-mw"
+    target_id: "comp-auth"
+    label: "Resolves admin session"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Session cookie"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-rbac"
+      - "ev-asm-auth-vendor"
+
+  - id: "rel-signerui-to-magic"
+    source_id: "comp-signer-ui"
+    target_id: "comp-magic-link"
+    label: "Validate and consume signer token"
+    interaction_type: "uses"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Magic-link token"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-mw-to-document"
+    source_id: "comp-tenant-rbac-mw"
+    target_id: "comp-document-svc"
+    label: "Authorized document writes"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Document mutations"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "rel-mw-to-template"
+    source_id: "comp-tenant-rbac-mw"
+    target_id: "comp-template-svc"
+    label: "Authorized template writes"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Template mutations"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-admin"
+
+  - id: "rel-signerui-to-signing"
+    source_id: "comp-signer-ui"
+    target_id: "comp-signing-svc"
+    label: "Submit signature"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Signature submission"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-signing-to-audit"
+    source_id: "comp-signing-svc"
+    target_id: "comp-audit-writer"
+    label: "Append audit event"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Audit event"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+
+  - id: "rel-document-to-audit"
+    source_id: "comp-document-svc"
+    target_id: "comp-audit-writer"
+    label: "Append audit event for transitions"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Audit event"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+
+  - id: "rel-signing-to-webhookmgr"
+    source_id: "comp-signing-svc"
+    target_id: "comp-webhook-mgr"
+    label: "Enqueue webhook delivery (in-tx)"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "webhook_delivery row"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  - id: "rel-document-svc-to-pg"
+    source_id: "comp-document-svc"
+    target_id: "container-postgres"
+    label: "Persist documents/recipients"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "documents, recipients, fields"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+
+  - id: "rel-template-svc-to-pg"
+    source_id: "comp-template-svc"
+    target_id: "container-postgres"
+    label: "Persist templates"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "templates, template_versions"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+
+  - id: "rel-signing-to-pg"
+    source_id: "comp-signing-svc"
+    target_id: "container-postgres"
+    label: "Append signature_events"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "signature_events"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+
+  - id: "rel-audit-to-pg"
+    source_id: "comp-audit-writer"
+    target_id: "container-postgres"
+    label: "Append hash-chained audit_events"
+    interaction_type: "writes"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "audit_events"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+      - "ev-trd-audit"
+
+  - id: "rel-webhookmgr-to-pg"
+    source_id: "comp-webhook-mgr"
+    target_id: "container-postgres"
+    label: "Persist subscriptions and delivery intent + enqueue job"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "webhook_subscriptions, webhook_deliveries"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+      - "ev-trd-queue"
+
+  - id: "rel-magic-to-pg"
+    source_id: "comp-magic-link"
+    target_id: "container-postgres"
+    label: "Issue/consume magic-link tokens"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "magic_link_tokens"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-auth-to-workos"
+    source_id: "comp-auth"
+    target_id: "ext-workos"
+    label: "OIDC/SAML callback"
+    interaction_type: "authenticates_with"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Identity assertions"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-auth-vendor"
+
+  # ---- Component-level edges (container-worker internals) ----
+  - id: "rel-jobrunner-to-pg"
+    source_id: "comp-job-runner"
+    target_id: "container-postgres"
+    label: "Poll/lock pg-boss job rows"
+    interaction_type: "reads"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "Job rows"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-trd-queue"
+
+  - id: "rel-jobrunner-dispatch-email"
+    source_id: "comp-job-runner"
+    target_id: "comp-email-handler"
+    label: "Dispatch email jobs"
+    interaction_type: "triggers"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Email job payload"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+
+  - id: "rel-jobrunner-dispatch-webhook"
+    source_id: "comp-job-runner"
+    target_id: "comp-webhook-deliverer"
+    label: "Dispatch webhook delivery jobs"
+    interaction_type: "triggers"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Webhook delivery job payload"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  - id: "rel-jobrunner-dispatch-pdf"
+    source_id: "comp-job-runner"
+    target_id: "comp-pdf-sealer"
+    label: "Dispatch PDF sealing jobs"
+    interaction_type: "triggers"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Seal PDF job payload"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-jobrunner-dispatch-reminder"
+    source_id: "comp-job-runner"
+    target_id: "comp-reminder-scheduler"
+    label: "Dispatch reminder jobs"
+    interaction_type: "triggers"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Reminder job payload"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+
+  - id: "rel-jobrunner-dispatch-audit"
+    source_id: "comp-job-runner"
+    target_id: "comp-audit-finalizer"
+    label: "Dispatch audit verification jobs"
+    interaction_type: "triggers"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "in_process"
+    data_objects:
+      - "Audit verify job payload"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+
+  - id: "rel-email-to-emailprovider"
+    source_id: "comp-email-handler"
+    target_id: "ext-email"
+    label: "Send transactional email"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "Email payload"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-asm-email-vendor"
+
+  - id: "rel-webhookdeliverer-to-customer"
+    source_id: "comp-webhook-deliverer"
+    target_id: "ext-customer-system"
+    label: "POST signed payload (HMAC) with retry/DLQ"
+    interaction_type: "publishes"
+    directionality: "unidirectional"
+    sync_async: "async"
+    protocol: "https"
+    data_objects:
+      - "document.* events"
+      - "signature.* events"
+    confidence: "confirmed"
+    evidence_ids:
+      - "ev-req-webhook"
+      - "ev-req-async-reliability"
+
+  - id: "rel-webhookdeliverer-to-pg"
+    source_id: "comp-webhook-deliverer"
+    target_id: "container-postgres"
+    label: "Update delivery status / DLQ flag"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "webhook_deliveries"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-webhook"
+
+  - id: "rel-pdfsealer-to-s3"
+    source_id: "comp-pdf-sealer"
+    target_id: "ext-s3"
+    label: "Write sealed PDF"
+    interaction_type: "writes"
+    directionality: "unidirectional"
+    sync_async: "storage"
+    protocol: "s3"
+    data_objects:
+      - "Sealed PDF"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-signer"
+
+  - id: "rel-pdfsealer-to-pg"
+    source_id: "comp-pdf-sealer"
+    target_id: "container-postgres"
+    label: "Persist sealed PDF SHA-256 + state"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "documents.sealed_sha256"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-data-ownership"
+
+  - id: "rel-reminder-to-pg"
+    source_id: "comp-reminder-scheduler"
+    target_id: "container-postgres"
+    label: "Re-enqueue reminder jobs and expire stale tokens"
+    interaction_type: "writes"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "Job rows"
+      - "magic_link_tokens"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-async-reliability"
+
+  - id: "rel-auditfinalizer-to-pg"
+    source_id: "comp-audit-finalizer"
+    target_id: "container-postgres"
+    label: "Verify hash chain end-to-end"
+    interaction_type: "reads"
+    directionality: "bidirectional"
+    sync_async: "sync"
+    protocol: "sql"
+    data_objects:
+      - "audit_events"
+    confidence: "strong_inference"
+    evidence_ids:
+      - "ev-req-audit"
+      - "ev-trd-audit"
+
+  # ---- Deployment placements ----
+  - id: "rel-edge-routes-app"
+    source_id: "node-edge"
+    target_id: "node-app"
+    label: "Routes inbound HTTPS"
+    interaction_type: "calls"
+    directionality: "unidirectional"
+    sync_async: "sync"
+    protocol: "https"
+    data_objects:
+      - "HTTP requests"
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+
+  - id: "rel-app-deploys-web"
+    source_id: "container-web"
+    target_id: "node-app"
+    label: "Deploys to"
+    interaction_type: "deploys_to"
+    directionality: "unidirectional"
+    sync_async: "n_a"
+    protocol: "n_a"
+    data_objects: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+
+  - id: "rel-worker-deploys-worker-node"
+    source_id: "container-worker"
+    target_id: "node-worker"
+    label: "Deploys to"
+    interaction_type: "deploys_to"
+    directionality: "unidirectional"
+    sync_async: "n_a"
+    protocol: "n_a"
+    data_objects: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+
+  - id: "rel-pg-deploys-db-node"
+    source_id: "container-postgres"
+    target_id: "node-db"
+    label: "Hosted on"
+    interaction_type: "deploys_to"
+    directionality: "unidirectional"
+    sync_async: "n_a"
+    protocol: "n_a"
+    data_objects: []
+    confidence: "weak_inference"
+    evidence_ids:
+      - "ev-asm-region"
+
+evidence:
+  - id: "ev-req-admin"
+    path: "plan://requirements/sender-admin"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires sender/admin experience for documents, templates, recipients, and tracking."
+
+  - id: "ev-req-signer"
+    path: "plan://requirements/signer-flow"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires public signer flow entered from email magic links."
+
+  - id: "ev-req-webhook"
+    path: "plan://requirements/webhooks"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires webhook callbacks into customer systems on document/signature state changes."
+
+  - id: "ev-req-audit"
+    path: "plan://requirements/audit-trail"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires an immutable audit trail for every signature event and important document transition."
+
+  - id: "ev-req-rbac"
+    path: "plan://requirements/security"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires admin isolation, RBAC, and reasonable B2B security defaults."
+
+  - id: "ev-req-async-reliability"
+    path: "plan://requirements/async-reliability"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires pragmatic reliability for notifications, webhooks, and audit/event processing."
+
+  - id: "ev-req-data-ownership"
+    path: "plan://requirements/data-ownership"
+    kind: "plan_requirement"
+    strength: "high"
+    reason: "User explicitly requires clear ownership of source-of-truth data and clean async vs request boundaries."
+
+  - id: "ev-con-team"
+    path: "plan://constraints/team-size"
+    kind: "plan_constraint"
+    strength: "high"
+    reason: "User stated team is 5 engineers."
+
+  - id: "ev-con-timeline"
+    path: "plan://constraints/timeline"
+    kind: "plan_constraint"
+    strength: "high"
+    reason: "User stated 10-week target for credible MVP."
+
+  - id: "ev-con-tenancy"
+    path: "plan://constraints/multi-tenant"
+    kind: "plan_constraint"
+    strength: "high"
+    reason: "User stated the product is multi-tenant B2B."
+
+  - id: "ev-asm-stack"
+    path: "plan://assumptions/stack"
+    kind: "plan_assumption"
+    strength: "medium"
+    reason: "Documented assumption: TypeScript monorepo with Next.js + Node worker for shared types and team velocity."
+
+  - id: "ev-asm-compliance"
+    path: "plan://assumptions/compliance-bar"
+    kind: "plan_assumption"
+    strength: "medium"
+    reason: "Documented assumption: ESIGN/UETA only at MVP; eIDAS QES and 21 CFR Part 11 explicitly out of scope."
+
+  - id: "ev-asm-region"
+    path: "plan://assumptions/region"
+    kind: "plan_assumption"
+    strength: "medium"
+    reason: "Documented assumption: single-region US deployment at launch."
+
+  - id: "ev-asm-auth-vendor"
+    path: "plan://assumptions/auth-vendor"
+    kind: "plan_assumption"
+    strength: "medium"
+    reason: "Documented assumption: WorkOS for SSO/SCIM."
+
+  - id: "ev-asm-email-vendor"
+    path: "plan://assumptions/email-vendor"
+    kind: "plan_assumption"
+    strength: "medium"
+    reason: "Documented assumption: Postmark or Resend for transactional email."
+
+  - id: "ev-trd-monolith"
+    path: "plan://tradeoffs/monolith-vs-services"
+    kind: "plan_tradeoff"
+    strength: "high"
+    reason: "Recommended default: modular monolith + worker over services, given 5 engineers and 10-week MVP target."
+
+  - id: "ev-trd-tenancy"
+    path: "plan://tradeoffs/tenancy-model"
+    kind: "plan_tradeoff"
+    strength: "high"
+    reason: "Recommended default: shared schema with tenant_id and RLS backstop over schema-per-tenant."
+
+  - id: "ev-trd-queue"
+    path: "plan://tradeoffs/queue-choice"
+    kind: "plan_tradeoff"
+    strength: "high"
+    reason: "Recommended default: Postgres-backed queue over Redis for transactional enqueue and one-fewer-system simplicity."
+
+  - id: "ev-trd-audit"
+    path: "plan://tradeoffs/audit-store"
+    kind: "plan_tradeoff"
+    strength: "high"
+    reason: "Recommended default: append-only hash-chained audit_events table over a separate event store."
+
+unknowns:
+  - "Compliance bar beyond ESIGN/UETA (eIDAS QES, HIPAA, 21 CFR Part 11)"
+  - "Primary cloud target (Fly/Render vs AWS) — affects enterprise procurement and VPC peering options"
+  - "Data residency requirements (US-only vs EU)"
+  - "Final auth provider choice (WorkOS vs Clerk vs Auth0)"
+  - "Public API surface scope at MVP"
+  - "Template engine scope (static vs conditional)"
+  - "Billing/metering at launch (Stripe subscriptions vs deferred)"
+
+assumptions:
+  - text: "TypeScript monorepo (Next.js + Node worker) with Drizzle/Prisma."
+    confidence: "strong_inference"
+  - text: "ESIGN/UETA is the compliance bar at MVP."
+    confidence: "strong_inference"
+  - text: "Single-region US deployment at launch."
+    confidence: "strong_inference"
+  - text: "WorkOS for admin SSO/SCIM; Postmark/Resend for email."
+    confidence: "strong_inference"
+  - text: "Postgres-backed job queue (pg-boss/River) is sufficient for projected MVP load."
+    confidence: "strong_inference"

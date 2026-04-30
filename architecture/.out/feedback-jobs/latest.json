@@ -1,0 +1,8 @@
+{
+  "job_id": "job_2026-04-25T00-55-46-872Z_770a",
+  "state": "blocked",
+  "status_path": "/Users/will/code/document-signing/architecture/.out/feedback-jobs/job_2026-04-25T00-55-46-872Z_770a/status.json",
+  "result_path": "/Users/will/code/document-signing/architecture/.out/feedback-jobs/job_2026-04-25T00-55-46-872Z_770a/result.json",
+  "diagram_path": "/Users/will/code/document-signing/architecture/diagram.html",
+  "output_root": "/Users/will/code/document-signing"
+}

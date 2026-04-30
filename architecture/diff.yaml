@@ -1,0 +1,120 @@
+version: 2
+mode: "update"
+baseline_artifacts:
+  model: "architecture/model.yaml (revision rev-8f29cbbfea0c — single Background Worker)"
+changes:
+  added_elements:
+    - "container-pdf-pool"
+    - "container-webhook-pool"
+    - "container-audit-pool"
+    - "container-notifications-pool"
+    - "comp-jobrunner-pdf"
+    - "comp-jobrunner-webhook"
+    - "comp-jobrunner-audit"
+    - "comp-jobrunner-notifications"
+    - "comp-audit-async-appender"
+    - "node-worker-pdf"
+    - "node-worker-webhook"
+    - "node-worker-audit"
+    - "node-worker-notifications"
+  removed_elements:
+    - "container-worker"
+    - "comp-job-runner"
+    - "node-worker"
+  changed_elements:
+    - id: "comp-pdf-sealer"
+      changed_fields:
+        - "parent_id"
+    - id: "comp-webhook-deliverer"
+      changed_fields:
+        - "parent_id"
+    - id: "comp-audit-finalizer"
+      changed_fields:
+        - "parent_id"
+    - id: "comp-email-handler"
+      changed_fields:
+        - "parent_id"
+    - id: "comp-reminder-scheduler"
+      changed_fields:
+        - "parent_id"
+    - id: "comp-audit-writer"
+      changed_fields:
+        - "name"
+        - "description"
+        - "responsibility"
+        - "owned_data"
+        - "system_of_record"
+    - id: "comp-signing-svc"
+      changed_fields:
+        - "description"
+    - id: "comp-webhook-mgr"
+      changed_fields:
+        - "description"
+    - id: "system-doc-signing"
+      changed_fields:
+        - "description"
+        - "technology"
+    - id: "container-postgres"
+      changed_fields:
+        - "description"
+        - "owned_data"
+        - "system_of_record"
+  added_relationships:
+    - "rel-pdf-pool-to-postgres"
+    - "rel-pdf-pool-to-s3"
+    - "rel-pdf-pool-to-audit-queue"
+    - "rel-webhook-pool-to-postgres"
+    - "rel-webhook-pool-to-customer"
+    - "rel-webhook-pool-to-audit-queue"
+    - "rel-audit-pool-to-postgres"
+    - "rel-notifications-pool-to-postgres"
+    - "rel-notifications-pool-to-email"
+    - "rel-notifications-pool-to-audit-queue"
+    - "rel-jobrunner-pdf-to-pg"
+    - "rel-jobrunner-pdf-dispatch"
+    - "rel-pdfsealer-enqueue-audit"
+    - "rel-jobrunner-webhook-to-pg"
+    - "rel-jobrunner-webhook-dispatch"
+    - "rel-webhookdeliverer-enqueue-audit"
+    - "rel-jobrunner-audit-to-pg"
+    - "rel-jobrunner-audit-dispatch-appender"
+    - "rel-jobrunner-audit-dispatch-finalizer"
+    - "rel-audit-async-appender-to-pg"
+    - "rel-jobrunner-notifications-to-pg"
+    - "rel-jobrunner-notifications-dispatch-email"
+    - "rel-jobrunner-notifications-dispatch-reminder"
+    - "rel-email-enqueue-audit"
+    - "rel-pdf-pool-deploys"
+    - "rel-webhook-pool-deploys"
+    - "rel-audit-pool-deploys"
+    - "rel-notifications-pool-deploys"
+  removed_relationships:
+    - "rel-worker-to-postgres"
+    - "rel-worker-to-s3"
+    - "rel-worker-to-email"
+    - "rel-worker-to-customer"
+    - "rel-jobrunner-to-pg"
+    - "rel-jobrunner-dispatch-email"
+    - "rel-jobrunner-dispatch-webhook"
+    - "rel-jobrunner-dispatch-pdf"
+    - "rel-jobrunner-dispatch-reminder"
+    - "rel-jobrunner-dispatch-audit"
+    - "rel-worker-deploys-worker-node"
+  changed_relationships:
+    - id: "rel-web-enqueues-jobs"
+      changed_fields:
+        - "label"
+        - "data_objects"
+  added_views:
+    - "view-component-pdf-pool"
+    - "view-component-webhook-pool"
+    - "view-component-audit-pool"
+    - "view-component-notifications-pool"
+  removed_views:
+    - "view-component-worker"
+notes:
+  - "Driver: review feedback on the diagram (comp-job-runner) — split the single worker by failure mode and resource profile."
+  - "Container split: the former `container-worker` becomes four containers (pdf-sealing, webhook-delivery, audit, notifications). Each has its own pg-boss job runner. Existing handler component IDs are preserved; only their parent_id changed."
+  - "Audit ownership: a new `comp-audit-async-appender` in the audit pool is the single writer for async-path audit_events; sync-path appends still flow through `comp-audit-writer` inside the web monolith."
+  - "Deployment: `node-worker` replaced by four per-pool compute nodes; per-pool autoscaling matches the workload shape."
+  - "Stable IDs preserved across the revision for unchanged web-tier components, services, and external systems."

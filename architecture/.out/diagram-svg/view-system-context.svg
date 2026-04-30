@@ -1,0 +1,94 @@
+<svg viewBox="0 0 994 598" width="994" height="598" xmlns="http://www.w3.org/2000/svg" data-routing-version="2">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--color-border-strong)" />
+    </marker>
+  </defs>
+  <rect x="338.6" y="68.0" width="316.6" height="174.0" rx="14" fill="var(--color-bg-sidebar)" stroke="var(--color-border-default)" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="354.6" y="90.0" font-size="11" fill="var(--color-text-tertiary)" font-weight="700" letter-spacing="0.08em">Document Signing Platform</text>
+  <g data-relationship-id="rel-admin-uses-system" data-view-id="view-system-context" data-target-label="Authors and tracks envelopes">
+    <path d="M 298.6 125.0 L 334.6 125.0 Q 344.6 125.0 344.6 135.0 L 344.6 145.0 Q 344.6 155.0 354.6 155.0 L 366.6 155.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 298.6 125.0 L 334.6 125.0 Q 344.6 125.0 344.6 135.0 L 344.6 145.0 Q 344.6 155.0 354.6 155.0 L 366.6 155.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-signer-uses-system" data-view-id="view-system-context" data-target-label="Signs via magic link">
+    <path d="M 298.6 249.0 L 354.6 249.0 Q 364.6 249.0 364.6 239.0 L 364.6 88.0 Q 364.6 78.0 374.6 78.0 L 450.5 78.0 Q 459.5 78.0 459.5 87.0 L 459.5 96.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 298.6 249.0 L 354.6 249.0 Q 364.6 249.0 364.6 239.0 L 364.6 88.0 Q 364.6 78.0 374.6 78.0 L 450.5 78.0 Q 459.5 78.0 459.5 87.0 L 459.5 96.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-developer-uses-api" data-view-id="view-system-context" data-target-label="Calls REST API; receives webhooks">
+    <path d="M 298.6 373.0 L 307.6 373.0 Q 316.6 373.0 316.6 364.0 L 316.6 321.0 Q 316.6 311.0 326.6 311.0 L 449.5 311.0 Q 459.5 311.0 459.5 301.0 L 459.5 214.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 298.6 373.0 L 307.6 373.0 Q 316.6 373.0 316.6 364.0 L 316.6 321.0 Q 316.6 311.0 326.6 311.0 L 449.5 311.0 Q 459.5 311.0 459.5 301.0 L 459.5 214.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-system-uses-workos" data-view-id="view-system-context" data-target-label="Authenticates admins (SSO/SCIM)">
+    <path d="M 534.4 96.0 L 534.4 87.0 Q 534.4 78.0 543.4 78.0 L 619.3 78.0 Q 629.3 78.0 629.3 88.0 L 629.3 115.0 Q 629.3 125.0 639.3 125.0 L 695.3 125.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 534.4 96.0 L 534.4 87.0 Q 534.4 78.0 543.4 78.0 L 619.3 78.0 Q 629.3 78.0 629.3 88.0 L 629.3 115.0 Q 629.3 125.0 639.3 125.0 L 695.3 125.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-system-uses-email" data-view-id="view-system-context" data-target-label="Sends transactional email">
+    <path d="M 627.3 141.3 L 646.3 141.3 Q 656.3 141.3 656.3 151.3 L 656.3 239.0 Q 656.3 249.0 666.3 249.0 L 695.3 249.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 627.3 141.3 L 646.3 141.3 Q 656.3 141.3 656.3 151.3 L 656.3 239.0 Q 656.3 249.0 666.3 249.0 L 695.3 249.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-system-uses-s3" data-view-id="view-system-context" data-target-label="Stores PDFs and assets">
+    <path d="M 534.4 214.0 L 534.4 223.0 Q 534.4 232.0 543.4 232.0 L 600.8 232.0 Q 610.8 232.0 610.8 242.0 L 610.8 363.0 Q 610.8 373.0 620.8 373.0 L 695.3 373.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 534.4 214.0 L 534.4 223.0 Q 534.4 232.0 543.4 232.0 L 600.8 232.0 Q 610.8 232.0 610.8 242.0 L 610.8 363.0 Q 610.8 373.0 620.8 373.0 L 695.3 373.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g data-relationship-id="rel-system-fires-webhooks" data-view-id="view-system-context" data-target-label="Delivers signed webhook callbacks">
+    <path d="M 627.3 168.7 L 656.3 168.7 Q 666.3 168.7 666.3 178.7 L 666.3 487.0 Q 666.3 497.0 676.3 497.0 L 695.3 497.0" stroke="var(--color-border-strong)" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+    <path d="M 627.3 168.7 L 656.3 168.7 Q 666.3 168.7 666.3 178.7 L 666.3 487.0 Q 666.3 497.0 676.3 497.0 L 695.3 497.0" stroke="transparent" stroke-width="14" fill="none" />
+  </g>
+  <g class="diagram-node" data-element="sage" data-element-id="person-admin" data-view-id="view-system-context" data-target-label="Admin / Sender">
+    <rect x="64.0" y="80.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-sage-fill)" stroke="var(--color-element-sage)" stroke-width="2" />
+    <path d="M 76.0 80.0 H 286.6 Q 298.6 80.0 298.6 92.0 V 99.0 H 64.0 V 92.0 Q 64.0 80.0 76.0 80.0 Z" data-node-header="true" fill="var(--color-element-sage)" fill-opacity="0.18" />
+    <text x="181.3" y="90.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Person</text>
+    <text x="181.3" y="132.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Admin / Sender</text>
+    <text x="181.3" y="150.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Tenant-side user who create…</text>
+  </g>
+  <g class="diagram-node" data-element="sage" data-element-id="person-signer" data-view-id="view-system-context" data-target-label="Signer">
+    <rect x="64.0" y="204.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-sage-fill)" stroke="var(--color-element-sage)" stroke-width="2" />
+    <path d="M 76.0 204.0 H 286.6 Q 298.6 204.0 298.6 216.0 V 223.0 H 64.0 V 216.0 Q 64.0 204.0 76.0 204.0 Z" data-node-header="true" fill="var(--color-element-sage)" fill-opacity="0.18" />
+    <text x="181.3" y="214.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Person</text>
+    <text x="181.3" y="256.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Signer</text>
+    <text x="181.3" y="274.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">External recipient who ente…</text>
+  </g>
+  <g class="diagram-node" data-element="sage" data-element-id="person-developer" data-view-id="view-system-context" data-target-label="Customer Developer">
+    <rect x="64.0" y="328.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-sage-fill)" stroke="var(--color-element-sage)" stroke-width="2" />
+    <path d="M 76.0 328.0 H 286.6 Q 298.6 328.0 298.6 340.0 V 347.0 H 64.0 V 340.0 Q 64.0 328.0 76.0 328.0 Z" data-node-header="true" fill="var(--color-element-sage)" fill-opacity="0.18" />
+    <text x="181.3" y="338.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Person</text>
+    <text x="181.3" y="380.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Customer Developer</text>
+    <text x="181.3" y="398.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Engineer at a customer comp…</text>
+  </g>
+  <g class="diagram-node" data-element="indigo" data-element-id="system-doc-signing" data-view-id="view-system-context" data-target-label="Document Signing Platform">
+    <rect x="366.6" y="96.0" width="260.6" height="118.0" rx="12" fill="var(--color-element-indigo-fill)" stroke="var(--color-element-indigo)" stroke-width="2" />
+    <path d="M 378.6 96.0 H 615.3 Q 627.3 96.0 627.3 108.0 V 115.0 H 366.6 V 108.0 Q 366.6 96.0 378.6 96.0 Z" data-node-header="true" fill="var(--color-element-indigo)" fill-opacity="0.18" />
+    <text x="497.0" y="106.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">Software System</text>
+    <text x="497.0" y="148.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Document Signing</text>
+    <text x="497.0" y="166.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Platform</text>
+    <text x="497.0" y="184.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">TypeScript monorepo (Next.j…</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-workos" data-view-id="view-system-context" data-target-label="WorkOS">
+    <rect x="695.3" y="80.0" width="180.0" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 707.3 80.0 H 863.3 Q 875.3 80.0 875.3 92.0 V 99.0 H 695.3 V 92.0 Q 695.3 80.0 707.3 80.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="785.3" y="90.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="785.3" y="132.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">WorkOS</text>
+    <text x="785.3" y="150.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">WorkOS</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-email" data-view-id="view-system-context" data-target-label="Email Provider">
+    <rect x="695.3" y="204.0" width="180.0" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 707.3 204.0 H 863.3 Q 875.3 204.0 875.3 216.0 V 223.0 H 695.3 V 216.0 Q 695.3 204.0 707.3 204.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="785.3" y="214.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="785.3" y="256.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Email Provider</text>
+    <text x="785.3" y="274.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Postmark or Resend</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-s3" data-view-id="view-system-context" data-target-label="Object Storage">
+    <rect x="695.3" y="328.0" width="202.7" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 707.3 328.0 H 886.0 Q 898.0 328.0 898.0 340.0 V 347.0 H 695.3 V 340.0 Q 695.3 328.0 707.3 328.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="796.6" y="338.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="796.6" y="380.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Object Storage</text>
+    <text x="796.6" y="398.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">AWS S3 or Cloudflare R2</text>
+  </g>
+  <g class="diagram-node" data-element="ochre" data-element-id="ext-customer-system" data-view-id="view-system-context" data-target-label="Customer System">
+    <rect x="695.3" y="452.0" width="234.6" height="90.0" rx="12" fill="var(--color-element-ochre-fill)" stroke="var(--color-element-ochre)" stroke-width="2" />
+    <path d="M 707.3 452.0 H 917.9 Q 929.9 452.0 929.9 464.0 V 471.0 H 695.3 V 464.0 Q 695.3 452.0 707.3 452.0 Z" data-node-header="true" fill="var(--color-element-ochre)" fill-opacity="0.18" />
+    <text x="812.6" y="462.2" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="600" fill="var(--color-text-primary)">External System</text>
+    <text x="812.6" y="504.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--color-text-primary)">Customer System</text>
+    <text x="812.6" y="522.0" text-anchor="middle" font-size="11" fill="var(--color-text-secondary)">Consume webhook events and …</text>
+  </g>
+</svg>

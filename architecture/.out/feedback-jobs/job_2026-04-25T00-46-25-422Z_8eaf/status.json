@@ -1,0 +1,16 @@
+{
+  "submitted_comment_count": 1,
+  "submitted_revision_id": "rev-8f29cbbfea0c",
+  "needs_refresh": false,
+  "has_fast_result": false,
+  "has_final_result": false,
+  "diagram_path": "/Users/will/code/document-signing/architecture/diagram.html",
+  "output_root": "/Users/will/code/document-signing",
+  "bridge_url": "http://127.0.0.1:8765",
+  "job_id": "job_2026-04-25T00-46-25-422Z_8eaf",
+  "state": "received",
+  "message": "Comments sent. The agent is reviewing them now.",
+  "timestamps": {
+    "received_at": "2026-04-25T00:46:25Z"
+  }
+}
